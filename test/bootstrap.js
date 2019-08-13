@@ -14,13 +14,13 @@ before(async () => {
   global.browser = await puppeteer.launch(options);
 
   page = await browser.newPage();
-  await page.goto("http://mibserver-sandbox.personal-svcs.com/");
+  await page.goto("");
 
   const username = await page.$("#username");
   const password = await page.$("#password");
 
-  await username.type("administrator");
-  await password.type("mediaibox");
+  await username.type("");
+  await password.type("");
 
   await Promise.all([
     page.click("button.submit"),

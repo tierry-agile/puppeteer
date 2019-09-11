@@ -1,38 +1,47 @@
 describe("MiB Tests", () => {
-  it("Check if main page is Genres List Page", async () => {
-    const headerElement = (await page.$x(
-      "//*[@id = 'mib-list-breadcrumb-header']//h4"
-    ))[0];
+  it("Login and Check Mi Biblioteca Block", async () => {
+    const [ingresarButton] = await page.$x(
+      "//*[@id='__next']/header/div/div[4]/button"
+    );
 
-    const headerText = await page.evaluate(el => {
-      return el.textContent;
-    }, headerElement);
+    await ingresarButton.click();
 
-    //  Chai Expect (Assert and Should)
-    expect(headerText).to.equal("Genres");
-  });
+    const iframeElement = await page.$("#loginIframe");
+    const loginFrame = await iframeElement.contentFrame();
 
-  it("Navigate to Age Rating Page through the button", async () => {
-    const menuButton = await page.$(".mib-menu-btn-back");
-    await menuButton.click();
+    await loginFrame.waitForSelector("#idToken1");
 
-    const input = await page.$("#main-menu-search-input");
-    await input.type("Age Rating");
+    const username = await loginFrame.$("#idToken1");
+    const password = await loginFrame.$("#idToken2");
 
-    const link = (await page.$x("//*[@id='mib-search-menu']//a"))[1];
-    await link.click();
+    await username.type("1140370981");
+    await password.type("1469");
 
-    await page.waitForNavigation({ waitUntil: "load" });
+    const submitButton = await loginFrame.$("#loginButton_0");
 
-    const headerElement = (await page.$x(
-      "//*[@id = 'mib-list-breadcrumb-header']//h4"
-    ))[0];
+    await submitButton.click();
 
-    const headerText = await page.evaluate(el => {
-      return el.textContent;
-    }, headerElement);
+    await page.waitForXPath(
+      "//*[@id='__next']/header/div/div[4]/div/button/span/span[2]"
+    );
 
-    //  Chai Expect (Assert and Should)
-    expect(headerText).to.equal("Age Rating");
+    const [dropdown] = await page.$x(
+      "//*[@id='__next']/header/div/div[4]/div/button/span/span[2]"
+    );
+    await dropdown.click();
+
+    const [misContenidosButton] = await page.$x(
+      "//*[@id='dropMenu']/div/div/div/div/ul/nav[1]/div"
+    );
+    await misContenidosButton.click();
+
+    await page.waitForXPath("//*[@id='__next']/div[2]/div/div[2]");
+
+    const [miBibliotecaBlock] = await page.$x(
+      "//*[@id='__next']/div[2]/div/div[2]"
+    );
+
+    if (!misBibliotecaBlock)
+      throw new Error("Bloco Mi Biblioteca não encontrado!");
   });
 });

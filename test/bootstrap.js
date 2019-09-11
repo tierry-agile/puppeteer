@@ -4,9 +4,10 @@ const _ = require("lodash");
 const globalVariables = _.pick(global, ["browser", "expect"]);
 
 const options = {
-  headless: true,
+  headless: false,
   defaultViewport: null,
-  args: ["--start-maximized"]
+  slowMo: 100,
+  args: ["--start-maximized", "--ignore-certificate-errors"]
 };
 
 before(async () => {
@@ -14,18 +15,11 @@ before(async () => {
   global.browser = await puppeteer.launch(options);
 
   page = await browser.newPage();
-  await page.goto("");
 
-  const username = await page.$("#username");
-  const password = await page.$("#password");
-
-  await username.type("");
-  await password.type("");
-
-  await Promise.all([
-    page.click("button.submit"),
-    page.waitForNavigation({ waitUntil: "load" })
-  ]);
+  await page.goto("https://juegos-staging.personal.com.ar", {
+    waitUntil: "load",
+    timeout: 0
+  });
 });
 
 beforeEach(async () => {});

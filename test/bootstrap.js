@@ -4,7 +4,7 @@ const _ = require("lodash");
 const globalVariables = _.pick(global, ["browser", "expect"]);
 
 const options = {
-  headless: false,
+  headless: true,
   defaultViewport: null,
   slowMo: 100,
   args: ["--start-maximized", "--ignore-certificate-errors"]

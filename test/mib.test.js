@@ -41,7 +41,7 @@ describe("MiB Tests", () => {
       "//*[@id='__next']/div[2]/div/div[2]"
     );
 
-    if (!misBibliotecaBlock)
+    if (!miBibliotecaBlock)
       throw new Error("Bloco Mi Biblioteca não encontrado!");
   });
 });

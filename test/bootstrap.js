@@ -8,7 +8,6 @@ const isHeadless = true;
 const options = {
   headless: isHeadless,
   defaultViewport: null,
-  slowMo: 100,
   args: ["--start-maximized", "--ignore-certificate-errors"]
 };
 

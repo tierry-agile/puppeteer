@@ -3,8 +3,10 @@ const { expect } = require("chai");
 const _ = require("lodash");
 const globalVariables = _.pick(global, ["browser", "expect"]);
 
+const isHeadless = true;
+
 const options = {
-  headless: true,
+  headless: isHeadless,
   defaultViewport: null,
   slowMo: 100,
   args: ["--start-maximized", "--ignore-certificate-errors"]
@@ -15,6 +17,8 @@ before(async () => {
   global.browser = await puppeteer.launch(options);
 
   page = await browser.newPage();
+
+  if (isHeadless) await page.setViewport({ width: 1920, height: 1080 });
 
   await page.goto("https://juegos-staging.personal.com.ar", {
     waitUntil: "load",

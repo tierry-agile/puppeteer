@@ -9,7 +9,7 @@ describe("MiB Tests", () => {
 
     const loginPageObject = new LoginPage(page);
 
-    await loginPageObject.login("1140370981", "1469");
+    await loginPageObject.login(process.env.LINE, process.env.PASS);
 
     await mainPageObject.goToMisContenidos();
 

@@ -2,8 +2,9 @@ const puppeteer = require("puppeteer");
 const { expect } = require("chai");
 const _ = require("lodash");
 const globalVariables = _.pick(global, ["browser", "expect"]);
+require("dotenv/config");
 
-const isHeadless = true;
+const isHeadless = false;
 
 const options = {
   headless: isHeadless,
@@ -19,7 +20,7 @@ before(async () => {
 
   if (isHeadless) await page.setViewport({ width: 1920, height: 1080 });
 
-  await page.goto("https://juegos-staging.personal.com.ar", {
+  await page.goto(process.env.PERSONAL_URL, {
     waitUntil: "load",
     timeout: 0
   });

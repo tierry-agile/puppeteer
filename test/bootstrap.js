@@ -4,7 +4,7 @@ const _ = require("lodash");
 const globalVariables = _.pick(global, ["browser", "expect"]);
 require("dotenv/config");
 
-const isHeadless = false;
+const isHeadless = process.env.IS_HEADLESS;
 
 const options = {
   headless: isHeadless,

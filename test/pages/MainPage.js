@@ -1,16 +1,12 @@
 class MainPage {
-  //#region XPath's
-  _ingresarButtonXPath = "//*[@id='__next']/header/div/div[4]/button";
-  _dropdownXPath =
-    "//*[@id='__next']/header/div/div[4]/div/button/span/span[2]";
-  _misContenidosButtonXPath =
-    "//*[@id='dropMenu']/div/div/div/div/ul/nav[1]/div";
-  _miBibliotecaBlockXPath = "//*[@id='__next']/div[2]/div/div[2]";
-
-  //#endregion
-
   constructor(page) {
     this.page = page;
+    this._ingresarButtonXPath = "//*[@id='__next']/header/div/div[4]/button";
+    this._dropdownXPath =
+      "//*[@id='__next']/header/div/div[4]/div/button/span/span[2]";
+    this._misContenidosButtonXPath =
+      "//*[@id='dropMenu']/div/div/div/div/ul/nav[1]/div";
+    this._miBibliotecaBlockXPath = "//*[@id='__next']/div[2]/div/div[2]";
   }
 
   async clickOnIngresar() {
